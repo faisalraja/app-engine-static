@@ -1,0 +1,67 @@
+application: app-engine-static
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+skip_files:
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?\..*
+- ^(.*/)?tests$
+- \.svn
+- \.git
+- ^\.svn/.*
+
+
+builtins:
+- appstats: off #/_ah/stats/
+- remote_api: on #/_ah/remote_api/
+- deferred: on
+
+# Note that default_expiration is 10 minutes
+
+handlers:
+# development handler
+- url: /dev/.*
+  script: main.app
+
+# common static files
+- url: /(robots\.txt|humans\.txt|crossdomain\.xml)
+  static_files: static/\1
+  upload: static/(robots\.txt|humans\.txt|crossdomain\.xml)
+
+- url: /favicon\.ico
+  static_files: static/favicon.ico
+  upload: static/favicon\.ico
+
+- url: /(js|css|img|files)/(.*)
+  static_files: static/\1/\2
+  upload: static/(js|css|img|files)/.*
+
+# pages
+- url: /(.*\.html)
+  mime_type: text/html
+  static_files: gen/\1
+  upload: gen/(.*\.html)
+
+# index files
+- url: /(.+)/
+  static_files: static/gen/\1/index.html
+  upload: static/gen/(.+)/index.html
+
+- url: /(.+)
+  static_files: gen/\1/index.html
+  upload: gen/(.+)/index.html
+
+# site root
+- url: /
+  static_files: gen/index.html
+  upload: gen/index.html
+
+libraries:
+- name: jinja2
+  version: "2.6"
+- name: webapp2
+  version: "2.5.2"

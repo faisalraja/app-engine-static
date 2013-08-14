@@ -1,0 +1,13 @@
+{% macro main() -%}
+
+    {% set navigation = [('/', 'Home'), ('/demo/page-1.html', 'Page 1 Demo')] %}
+
+    <ul class="nav">
+    {%- for nav in navigation %}
+        <li class="{{ 'active' if nav[0] == page else '' }}">
+            <a href="{{ link(nav[0]) }}">{{ nav[1] }}</a>
+        </li>
+    {%- endfor %}
+    </ul>
+
+{%- endmacro %}

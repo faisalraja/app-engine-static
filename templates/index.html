@@ -1,0 +1,20 @@
+{% extends "layout/main.html" %}
+
+{% block content %}
+
+<h2>
+    App Engine Static
+</h2>
+<p>
+    Quickly create and host static files on app engine.
+</p>
+<h4>Tips:</h4>
+<ul>
+    <li>Only modify templates/ & static/ folder to your needs and all pages will be generated from its structure.</li>
+    <li>templates/layout/ is ignored from generated pages, but you can still use any folder for creating templates and macros.</li>
+    <li>Run: python generate.py to update your static files.</li>
+    <li>All generated html goes to /gen/ it's not recommended to add this in your repository unless you use git to deploy.</li>
+</ul>
+
+{% endblock %}
+
