@@ -46,8 +46,8 @@ handlers:
 
 # index files
 - url: /(.+)/
-  static_files: static/gen/\1/index.html
-  upload: static/gen/(.+)/index.html
+  static_files: gen/\1/index.html
+  upload: gen/(.+)/index.html
 
 - url: /(.+)
   static_files: gen/\1/index.html
