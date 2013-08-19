@@ -1,6 +1,7 @@
 import hashlib
 import os
 import urllib2
+import time
 
 __author__ = 'faisal'
 
@@ -11,7 +12,7 @@ hide_html_ext = False
 use_index_paths = False
 
 url = 'http://localhost:8080/dev'
-template_path = 'templates/'
+template_path = 'templates'
 output_path = 'gen'
 
 if not os.path.exists(output_path):
@@ -23,7 +24,7 @@ def generate(path):
     if path.startswith('layout'):
         return
 
-    output = '%s/%s' % (output_path, path)
+    output = os.path.join(output_path, path)
 
     if hide_html_ext and not output.endswith('index.html'):
         output = output.split(os.sep)
@@ -41,7 +42,7 @@ def generate(path):
     if not use_index_paths and path.endswith('index.html'):
         path = path.replace('index.html', '')
 
-    request = urllib2.Request('%s/%s' % (url, path))
+    request = urllib2.Request('%s/%s' % (url, path.replace(os.sep, '/')))
     request.add_header('X-Generate', '1')
     response = urllib2.urlopen(request).read()
 
@@ -60,4 +61,4 @@ def generate(path):
 for r, d, f in os.walk(template_path):
     for files in f:
         if files.endswith('html'):
-            generate(os.path.join(r, files).replace(template_path, ''))
+            generate(os.path.join(r, files).replace(template_path + os.sep, ''))

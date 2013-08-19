@@ -6,12 +6,15 @@ from webapp2_extras import jinja2
 # constants
 IS_DEV = os.environ.get('SERVER_SOFTWARE').startswith('Dev')
 
+cache = {
+    'generate': False
+}
+
 
 class BaseHandler(webapp2.RequestHandler):
     """
         BaseHandler for all requests
     """
-    is_generate = False
 
     def dispatch(self):
         try:
@@ -22,16 +25,21 @@ class BaseHandler(webapp2.RequestHandler):
 
     def link(self, page='/'):
 
-        if not self.is_generate:
+        if not cache.get('generate'):
             page = '/dev%s' % page
 
         return page
 
+
     def jinja2_factory(self, app):
-        j = jinja2.Jinja2(app)
+        j = jinja2.Jinja2(app, config={
+            'environment_args': {
+                'cache_size': 0
+            }
+        })
         j.environment.globals.update({
             # Set global variables.
-            'link': self.link,
+            'link': self.link
         })
         return j
 
@@ -66,12 +74,12 @@ class DevHandler(BaseHandler):
         elif not template.endswith('.html'):
             template += '.html'
 
-        self.is_generate = self.request.headers.get('X-Generate') == '1'
+        cache['generate'] = self.request.headers.get('X-Generate') == '1'
 
         return self.render_template(template, **{'page': page})
 
 
 app = webapp2.WSGIApplication(debug=IS_DEV, routes=[
     # Main Routes
-    webapp2.Route(r'/dev<page:.*>', DevHandler, name='dev'),
+    webapp2.Route(r'/dev<page:.*>', DevHandler, name='dev')
 ])

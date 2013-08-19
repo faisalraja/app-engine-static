@@ -14,11 +14,9 @@ skip_files:
 - \.git
 - ^\.svn/.*
 
-
 builtins:
-- appstats: off #/_ah/stats/
-- remote_api: on #/_ah/remote_api/
-- deferred: on
+- appstats: off
+- remote_api: off
 
 # Note that default_expiration is 10 minutes
 
