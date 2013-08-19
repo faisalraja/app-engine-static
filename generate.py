@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import hashlib
 import os
 import urllib2
@@ -15,13 +16,15 @@ url = 'http://localhost:8080/dev'
 template_path = 'templates'
 output_path = 'gen'
 
+os.chdir(os.path.dirname(__file__))
+
 if not os.path.exists(output_path):
     os.makedirs(output_path)
 
 
 def generate(path):
-    # Skips all layouts
-    if path.startswith('layout'):
+    # Skips all _
+    if path.startswith('_'):
         return
 
     output = os.path.join(output_path, path)
