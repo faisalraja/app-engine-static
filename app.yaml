@@ -44,6 +44,12 @@ handlers:
   static_files: gen/\1
   upload: gen/(.*\.html)
 
+# xml
+- url: /(.*\.xml)
+  mime_type: text/xml
+  static_files: gen/\1
+  upload: gen/(.*\.xml)
+
 # index files
 - url: /(.+)/
   static_files: gen/\1/index.html
