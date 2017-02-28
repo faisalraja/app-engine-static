@@ -4,15 +4,18 @@ runtime: python27
 api_version: 1
 threadsafe: yes
 
+# increase this if once you think you won't be changing much anymore
+default_expiration: "5m"
+
 skip_files:
-- ^(.*/)?#.*#
-- ^(.*/)?.*~
-- ^(.*/)?.*\.py[co]
-- ^(.*/)?\..*
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
 - ^(.*/)?tests$
-- \.svn
-- \.git
-- ^\.svn/.*
+- ^src$
+- ^.*node_modules(/.*)?
 
 builtins:
 - appstats: off

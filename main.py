@@ -30,7 +30,6 @@ class BaseHandler(webapp2.RequestHandler):
 
         return page
 
-
     def jinja2_factory(self, app):
         j = jinja2.Jinja2(app, config={
             'environment_args': {
@@ -65,7 +64,7 @@ class DevHandler(BaseHandler):
     def get(self, page):
         # Abort when accessing from live site
         if not IS_DEV:
-            self.abort(404)
+            return self.abort(404)
 
         template = page
 

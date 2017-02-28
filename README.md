@@ -13,3 +13,6 @@ Summary of things::
 
 On development you access your dynamic site at http://localhost:8080/dev/ and all template files/folder starting
 with _ are skipped, useful for layouts.
+
+
+Demo: http://static.altlimit-test.appspot.com/
