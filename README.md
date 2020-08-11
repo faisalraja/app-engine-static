@@ -1,3 +1,9 @@
+    Although this still works, the better approach would now be use a static site generator 
+    (I also built one called Sitegen) and host it at Netlify, Github Pages, S3, or
+    any web server.
+    
+ Go to [sitegen](https://github.com/altlimit/sitegen)
+
 app-engine-static
 ==================
 
